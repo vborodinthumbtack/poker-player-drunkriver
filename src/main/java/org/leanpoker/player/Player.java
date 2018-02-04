@@ -54,6 +54,7 @@ public class Player {
                 countStreet = 0;
             else
                 countStreet++;
+
             if (countStreet == 4)
                 return STREET;
         }
@@ -145,6 +146,8 @@ public class Player {
                     return game.getCall();
             } else {
                 int comb = getHand(list);
+                System.out.println("comb: " + comb + "; Stage: " + game.getStage());
+
                 if (comb == CARE || comb == SUIT)
                     return game.getAllIn();
                 else if (comb == THREE)
