@@ -12,9 +12,10 @@ public class Player {
 
     public static int betRequest(GameState game) {
         HoleCard[] hole_cards = game.players[game.in_action].hole_cards;
+
         if (hole_cards[0].rank.equals(hole_cards[1].rank))
             return game.getAllIn();
-        else if(getIndexRank(hole_cards[0].rank) >= 9)
+        else if(getIndexRank(hole_cards[0].rank) >= 9 || getIndexRank(hole_cards[1].rank) >= 9)
             return game.getCall();
         else if(game.getStage() == 0 && hole_cards[0].suit.equals(hole_cards[1].suit))
             return game.getCall();
