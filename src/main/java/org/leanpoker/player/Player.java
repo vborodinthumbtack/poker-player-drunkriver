@@ -30,6 +30,7 @@ public class Player {
     static int CARE = 1000;
     static int TWO = 50;
     static int STREET = 100;
+    static int THREE_TWO= 1000;
 
     public static int getPattetialHand(List<HoleCard> holeCards) {
         int[] countRanks = new int[13];
@@ -88,6 +89,11 @@ public class Player {
         }
         for (int i = 0; i < 13; i++) {
             if (countRanks[i] == 3)
+                for (int j = 0; j < 13;j++) {
+                    if (countRanks[j] == 2)
+                        return THREE_TWO;
+
+                }
                 return THREE;
 
         }
@@ -123,7 +129,7 @@ public class Player {
                     return game.getAllIn();
                 else if (getIndexRank(hole_cards.get(0).rank) >= 9 || getIndexRank(hole_cards.get(1).rank) >= 9)
                     return game.getCall();
-                else if (game.getCall() <= game.small_blind * 2 && hole_cards.get(0).suit.equals(hole_cards.get(1).suit))
+                else if (game.getCall() <= game.small_blind * 6 && hole_cards.get(0).suit.equals(hole_cards.get(1).suit))
                     return game.getCall();
                 else if (game.getCall() < 5)
                     return game.getCall();
