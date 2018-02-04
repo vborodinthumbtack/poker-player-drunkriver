@@ -62,41 +62,45 @@ public class Player {
     }
 
     public static int betRequest(GameState game) {
-        ArrayList<HoleCard> hole_cards = game.players[game.in_action].hole_cards;
-        List<HoleCard> list = new ArrayList<HoleCard>();
-        list.addAll(hole_cards);
-        list.addAll(game.community_cards);
-        Collections.sort(list, new Comparator<HoleCard>() {
-            @Override
-            public int compare(HoleCard o1, HoleCard o2) {
-                if (getIndexRank(o1.rank) == getIndexRank(o2.rank))
-                    return 0;
-                else if (getIndexRank(o1.rank) > getIndexRank(o2.rank))
-                    return 1;
-                else
-                    return -1;
-            }
-        });
-//        if (getCountPlayers(game.players) > 3)
-//            return 0;
-        int comb = getHand(list);
-        if (comb == CARE || comb == SUIT)
-            return game.getAllIn();
-        else if (comb == THREE)
-            return game.getCall() + 10;
-        else if (comb != 0)
-            return game.getCall();
+        try {
+            ArrayList<HoleCard> hole_cards = game.players[game.in_action].hole_cards;
+            List<HoleCard> list = new ArrayList<HoleCard>();
+            list.addAll(hole_cards);
+            list.addAll(game.community_cards);
 
-        if (hole_cards.get(0).rank.equals(hole_cards.get(1).rank))
-            return game.getAllIn();
-        else if (getIndexRank(hole_cards.get(0).rank) >= 9 || getIndexRank(hole_cards.get(1).rank) >= 9)
-            return game.getCall();
-        else if (game.getStage() == 0 && hole_cards.get(0).suit.equals(hole_cards.get(1).suit))
-            return game.getCall();
-        else if (game.getCall() < 5)
-            return game.getCall();
-        else
+            Collections.sort(list, new Comparator<HoleCard>() {
+                @Override
+                public int compare(HoleCard o1, HoleCard o2) {
+                    if (getIndexRank(o1.rank) == getIndexRank(o2.rank))
+                        return 0;
+                    else if (getIndexRank(o1.rank) > getIndexRank(o2.rank))
+                        return 1;
+                    else
+                        return -1;
+                }
+            });
+
+            int comb = getHand(list);
+            if (comb == CARE || comb == SUIT)
+                return game.getAllIn();
+            else if (comb == THREE)
+                return game.getCall() + 10;
+            else if (comb != 0)
+                return game.getCall();
+
+            if (hole_cards.get(0).rank.equals(hole_cards.get(1).rank))
+                return game.getAllIn();
+            else if (getIndexRank(hole_cards.get(0).rank) >= 9 || getIndexRank(hole_cards.get(1).rank) >= 9)
+                return game.getCall();
+            else if (game.getStage() == 0 && hole_cards.get(0).suit.equals(hole_cards.get(1).suit))
+                return game.getCall();
+            else if (game.getCall() < 5)
+                return game.getCall();
+            else
+                return 0;
+        } catch (Exception e) {
             return 0;
+        }
     }
 
     public static int getIndexRank(String r) {
