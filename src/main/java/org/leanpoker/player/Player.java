@@ -80,24 +80,27 @@ public class Player {
                 }
             });
 
-            int comb = getHand(list);
-            if (comb == CARE || comb == SUIT)
-                return game.getAllIn();
-            else if (comb == THREE)
-                return game.getCall() + 10;
-            else if (comb != 0)
-                return game.getCall();
 
-            if (hole_cards.get(0).rank.equals(hole_cards.get(1).rank))
-                return game.getAllIn();
-            else if (getIndexRank(hole_cards.get(0).rank) >= 9 || getIndexRank(hole_cards.get(1).rank) >= 9)
-                return game.getCall();
-            else if (game.getStage() == 0 && hole_cards.get(0).suit.equals(hole_cards.get(1).suit))
-                return game.getCall();
-            else if (game.getCall() < 5)
-                return game.getCall();
-            else
-                return 0;
+            if (game.getStage() == 0) {
+                if (hole_cards.get(0).rank.equals(hole_cards.get(1).rank))
+                    return game.getAllIn();
+                else if (getIndexRank(hole_cards.get(0).rank) >= 9 || getIndexRank(hole_cards.get(1).rank) >= 9)
+                    return game.getCall();
+                else if (hole_cards.get(0).suit.equals(hole_cards.get(1).suit))
+                    return game.getCall();
+                else if (game.getCall() < 5)
+                    return game.getCall();
+            } else {
+                int comb = getHand(list);
+                if (comb == CARE || comb == SUIT)
+                    return game.getAllIn();
+                else if (comb == THREE)
+                    return game.getCall() + 10;
+                else if (comb != 0)
+                    return game.getCall();
+            }
+
+            return 0;
         } catch (Exception e) {
             return 0;
         }
