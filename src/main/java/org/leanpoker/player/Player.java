@@ -29,8 +29,10 @@ public class Player {
     static int THREE = 90;
     static int CARE = 1000;
     static int TWO = 50;
+    static int BIG_TWO = 60;
+    static int TWO_TWO = 90;
     static int STREET = 100;
-    static int THREE_TWO= 1000;
+    static int THREE_TWO = 1000;
 
     public static int getPattetialHand(List<HoleCard> holeCards) {
         int[] countRanks = new int[13];
@@ -89,17 +91,25 @@ public class Player {
         }
         for (int i = 0; i < 13; i++) {
             if (countRanks[i] == 3)
-                for (int j = 0; j < 13;j++) {
+                for (int j = 0; j < 13; j++) {
                     if (countRanks[j] == 2)
                         return THREE_TWO;
 
                 }
-                return THREE;
+            return THREE;
 
         }
-        for (int i = 0; i < 13; i++) {
-            if (countRanks[i] == 2)
-                return TWO;
+        for (int i = 12; i >= 0; i--) {
+            if (countRanks[i] == 2) {
+                for (int j = i - 1; j >= 0; j--) {
+                    if (countRanks[j] == 2)
+                        return TWO_TWO;
+                }
+                if (i >= 6)
+                    return BIG_TWO;
+                else
+                    return TWO;
+            }
         }
         return 0;
     }
@@ -139,7 +149,9 @@ public class Player {
                     return game.getAllIn();
                 else if (comb == THREE)
                     return game.getCall() + 10;
-                else if (comb != 0)
+                else if (comb == BIG_TWO)
+                    return game.getCall();
+                else if (comb == TWO && game.getCall() < game.small_blind * 6)
                     return game.getCall();
                 else if (game.getStage() != 3) {
                     int pat = getPattetialHand(list);
