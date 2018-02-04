@@ -53,6 +53,8 @@ public class Player {
 //        if (getCountPlayers(game.players) > 3)
 //            return 0;
 
+        System.out.println(System.getProperty("java.version"));
+
         if (hole_cards.get(0).rank.equals(hole_cards.get(1).rank))
             return game.getAllIn();
         else if (getIndexRank(hole_cards.get(0).rank) >= 9 || getIndexRank(hole_cards.get(1).rank) >= 9)
