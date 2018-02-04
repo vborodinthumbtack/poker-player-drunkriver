@@ -37,8 +37,13 @@ buildscript {
     }
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
+    compile 'org.projectlombok:lombok:1.16.20'
     def tomcatVersion = '7.0.11'
 
     providedCompile "org.apache.tomcat:tomcat-servlet-api:${tomcatVersion}"
