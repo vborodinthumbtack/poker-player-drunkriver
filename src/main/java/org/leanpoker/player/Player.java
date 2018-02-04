@@ -6,6 +6,8 @@ import org.leanpoker.player.model.HoleCard;
 import org.leanpoker.player.model.PlayerState;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Player {
@@ -23,14 +25,33 @@ public class Player {
         return count;
     }
 
+//    public static int getHand(ArrayList<HoleCard> holeCards){
+//       int []countRanks   = new int[13];
+//        for (int i =0; i < holeCards.size(); i++){
+//            if(holeCards.get(i).rank == 2){
+//
+//            }
+//        }
+//    }
+
     public static int betRequest(GameState game) {
         ArrayList<HoleCard> hole_cards = game.players[game.in_action].hole_cards;
         List<HoleCard> list = new ArrayList<HoleCard>();
         list.addAll(hole_cards);
         list.addAll(game.community_cards);
-
-        if (getCountPlayers(game.players) > 3)
-            return 0;
+        Collections.sort(list, new Comparator<HoleCard>() {
+            @Override
+            public int compare(HoleCard o1, HoleCard o2) {
+                if (getIndexRank(o1.rank) == getIndexRank(o2.rank))
+                    return 0;
+                else if (getIndexRank(o1.rank) > getIndexRank(o2.rank))
+                    return 1;
+                else
+                    return -1;
+            }
+        });
+//        if (getCountPlayers(game.players) > 3)
+//            return 0;
 
         if (hole_cards.get(0).rank.equals(hole_cards.get(1).rank))
             return game.getAllIn();
