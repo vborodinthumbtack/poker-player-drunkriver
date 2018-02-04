@@ -91,13 +91,14 @@ public class Player {
                 return STREET;
         }
         for (int i = 0; i < 13; i++) {
-            if (countRanks[i] == 3)
+            if (countRanks[i] == 3) {
                 for (int j = 0; j < 13; j++) {
                     if (countRanks[j] == 2)
                         return THREE_TWO;
 
                 }
-            return THREE;
+                return THREE;
+            }
 
         }
         for (int i = 12; i >= 0; i--) {
