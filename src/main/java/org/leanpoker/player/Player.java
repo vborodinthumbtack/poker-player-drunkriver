@@ -25,14 +25,41 @@ public class Player {
         return count;
     }
 
-//    public static int getHand(ArrayList<HoleCard> holeCards){
-//       int []countRanks   = new int[13];
-//        for (int i =0; i < holeCards.size(); i++){
-//            if(holeCards.get(i).rank == 2){
-//
-//            }
-//        }
-//    }
+    static int SUIT = 100;
+    static int THREE = 90;
+    static int CARE = 1000;
+    static int TWO = 50;
+
+    public static int getHand(List<HoleCard> holeCards) {
+        int[] countRanks = new int[13];
+        int[] countSuits = new int[4];
+        for (int i = 0; i < holeCards.size(); i++) {
+            int indxR = getIndexRank(holeCards.get(i).rank);
+            int indxS = getIndexSuit(holeCards.get(i).suit);
+            countRanks[indxR]++;
+            countSuits[indxS]++;
+
+        }
+        for (int i = 0; i < 4; i++) {
+            if (countSuits[i] == 5)
+                return SUIT;
+        }
+        for (int i = 0; i < 13; i++) {
+            if (countRanks[i] == 4)
+                return CARE;
+        }
+        for (int i = 0; i < 13; i++) {
+            if (countRanks[i] == 3)
+                return THREE;
+
+        }
+        for (int i = 0; i < 13; i++) {
+            if (countRanks[i] == 2)
+                return TWO;
+
+        }
+        return 0;
+    }
 
     public static int betRequest(GameState game) {
         ArrayList<HoleCard> hole_cards = game.players[game.in_action].hole_cards;
@@ -52,7 +79,11 @@ public class Player {
         });
 //        if (getCountPlayers(game.players) > 3)
 //            return 0;
-
+        int comb = getHand(list);
+        if (comb == CARE || comb == SUIT)
+            return game.getAllIn();
+        else if (comb != 0)
+            return game.getCall();
         if (hole_cards.get(0).rank.equals(hole_cards.get(1).rank))
             return game.getAllIn();
         else if (getIndexRank(hole_cards.get(0).rank) >= 9 || getIndexRank(hole_cards.get(1).rank) >= 9)
@@ -68,6 +99,14 @@ public class Player {
     public static int getIndexRank(String r) {
         for (int i = 0; i < listRanks.length; i++) {
             if (r.equals(listRanks[i]))
+                return i;
+        }
+        return 0;
+    }
+
+    public static int getIndexSuit(String r) {
+        for (int i = 0; i < listSuits.length; i++) {
+            if (r.equals(listSuits[i]))
                 return i;
         }
         return 0;
