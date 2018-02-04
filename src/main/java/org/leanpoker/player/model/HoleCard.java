@@ -5,6 +5,6 @@ package org.leanpoker.player.model;
  */
 
 public class HoleCard {
-    String rank;
-    String suit;
+    public String rank;
+    public   String suit;
 }

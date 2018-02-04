@@ -6,15 +6,17 @@ package org.leanpoker.player.model;
 
 public class GameState {
 
-    String tournament_id;
-    String game_id;
-    Integer round;
-    Integer bet_index;
-    Integer small_blind;
-    Integer current_buy_in;
-    Integer pot;
-    Integer minimum_raise;
-    Integer dealer;
-    Integer orbits;
-    Integer in_action;
+    public String tournament_id;
+    public String game_id;
+    public int round;
+    public int bet_index;
+    public int small_blind;
+    public int current_buy_in;
+    public int pot;
+    public int minimum_raise;
+    public int dealer;
+    public int orbits;
+    public int in_action;
+    public PlayerState [] players;
+
 }

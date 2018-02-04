@@ -4,10 +4,11 @@ package org.leanpoker.player.model;
  * Created by mindwork on 04.02.18.
  */
 public class PlayerState {
-    Integer id;
-    String name;
-    String status;
-    String version;
-    Integer stack;
-    Integer bet;
+    public int id;
+    public  String name;
+    public  String status;
+    public String version;
+    public int stack;
+    public int bet;
+    public HoleCard [] hole_cards;
 }
