@@ -30,6 +30,23 @@ public class Player {
     static int CARE = 1000;
     static int TWO = 50;
 
+    public static int getPattetialHand(List<HoleCard> holeCards) {
+        int[] countRanks = new int[13];
+        int[] countSuits = new int[4];
+        for (int i = 0; i < holeCards.size(); i++) {
+            int indxR = getIndexRank(holeCards.get(i).rank);
+            int indxS = getIndexSuit(holeCards.get(i).suit);
+            countRanks[indxR]++;
+            countSuits[indxS]++;
+
+        }
+        for (int i = 0; i < 4; i++) {
+            if (countSuits[i] == 4)
+                return SUIT;
+        }
+        return 0;
+    }
+
     public static int getHand(List<HoleCard> holeCards) {
         int[] countRanks = new int[13];
         int[] countSuits = new int[4];
@@ -98,6 +115,11 @@ public class Player {
                     return game.getCall() + 10;
                 else if (comb != 0)
                     return game.getCall();
+                else if (game.getStage() != 3) {
+                    int pat = getPattetialHand(list);
+                    if (pat != 0)
+                        return game.getCall();
+                }
             }
 
             return 0;
