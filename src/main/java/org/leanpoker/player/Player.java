@@ -85,8 +85,6 @@ public class Player {
         else if (comb != 0)
             return game.getCall();
 
-        System.out.println(System.getProperty("java.version"));
-
         if (hole_cards.get(0).rank.equals(hole_cards.get(1).rank))
             return game.getAllIn();
         else if (getIndexRank(hole_cards.get(0).rank) >= 9 || getIndexRank(hole_cards.get(1).rank) >= 9)
