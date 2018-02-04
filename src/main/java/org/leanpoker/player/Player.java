@@ -82,6 +82,8 @@ public class Player {
         int comb = getHand(list);
         if (comb == CARE || comb == SUIT)
             return game.getAllIn();
+        else if (comb == THREE)
+            return game.getCall() + 10;
         else if (comb != 0)
             return game.getCall();
 
