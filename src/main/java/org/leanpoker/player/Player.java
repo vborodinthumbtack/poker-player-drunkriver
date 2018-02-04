@@ -29,6 +29,7 @@ public class Player {
     static int THREE = 90;
     static int CARE = 1000;
     static int TWO = 50;
+    static int STREET = 100;
 
     public static int getPattetialHand(List<HoleCard> holeCards) {
         int[] countRanks = new int[13];
@@ -44,12 +45,23 @@ public class Player {
             if (countSuits[i] == 4)
                 return SUIT;
         }
+        int countStreet = 0;
+        for(int i =0; i < countRanks.length; i++){
+            if(countRanks[i] == 0)
+                countStreet = 0;
+            else
+                countStreet++;
+            if(countStreet == 4)
+                return STREET;
+        }
         return 0;
     }
 
     public static int getHand(List<HoleCard> holeCards) {
         int[] countRanks = new int[13];
         int[] countSuits = new int[4];
+
+
         for (int i = 0; i < holeCards.size(); i++) {
             int indxR = getIndexRank(holeCards.get(i).rank);
             int indxS = getIndexSuit(holeCards.get(i).suit);
@@ -58,12 +70,21 @@ public class Player {
 
         }
         for (int i = 0; i < 4; i++) {
-            if (countSuits[i] == 5)
+            if (countSuits[i] >= 5)
                 return SUIT;
         }
         for (int i = 0; i < 13; i++) {
             if (countRanks[i] == 4)
                 return CARE;
+        }
+        int countStreet = 0;
+        for(int i =0; i < countRanks.length; i++){
+            if(countRanks[i] == 0)
+                countStreet = 0;
+            else
+                countStreet++;
+            if(countStreet == 5)
+                return STREET;
         }
         for (int i = 0; i < 13; i++) {
             if (countRanks[i] == 3)
@@ -73,7 +94,6 @@ public class Player {
         for (int i = 0; i < 13; i++) {
             if (countRanks[i] == 2)
                 return TWO;
-
         }
         return 0;
     }
