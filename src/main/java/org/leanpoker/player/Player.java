@@ -18,6 +18,8 @@ public class Player {
             return game.getCall();
         else if(game.getStage() == 0 && hole_cards[0].suit.equals(hole_cards[1].suit))
             return game.getCall();
+        else if(game.getCall() < 5)
+            return game.getCall();
         else
             return 0;
     }
