@@ -126,7 +126,7 @@ public class Player {
 
             if (game.getStage() == 0) {
                 if (hole_cards.get(0).rank.equals(hole_cards.get(1).rank))
-                    return game.getAllIn();
+                    return game.getCall() + game.small_blind;
                 else if (getIndexRank(hole_cards.get(0).rank) >= 9 || getIndexRank(hole_cards.get(1).rank) >= 9)
                     return game.getCall();
                 else if (game.getCall() <= game.small_blind * 6 && hole_cards.get(0).suit.equals(hole_cards.get(1).suit))
